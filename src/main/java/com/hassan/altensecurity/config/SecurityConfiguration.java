@@ -24,18 +24,14 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/v1/auth/**")
+                        .requestMatchers("/api/v1/auth/**","/swagger-ui/**","/v3/api-docs/**","/swagger-ui.html")
                         .permitAll()
                         .requestMatchers("/api/v1/products", "/api/v1/products/**",
                                 "/api/v1/user/panel",
                                 "/api/v1/user/panel/**",
                                 "/api/v1/user/desired",
                                 "/api/v1/user/desired/**")
-                        .authenticated()
-                        .requestMatchers("/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html")
-                        .permitAll())
+                        .authenticated())
                 .sessionManagement(sessionManagementCustomizer -> sessionManagementCustomizer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
